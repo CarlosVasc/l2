@@ -3,6 +3,8 @@
 
 .include ../doc/ngspice_5.txt
 
+.model P2model NPN(Bf=200, CJE=12pF, CJC=2pF)
+
 .control
 
 *makes plots in color

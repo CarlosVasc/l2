@@ -189,7 +189,7 @@ fclose(fid22);
 
 
 syms v6(t)
-t=0:1e-6:20e-3;
+t=0:2e-6:20e-3;
 v6 = (V8_2 + Vx) * exp(-(t/tau));
 
 Teoria_3 = figure ();
@@ -275,10 +275,10 @@ fclose(fid41)
 
 %Faz tabela teorica4 argumentos
 fid42=fopen("teorico4_Arg.tex","w+");
-fprintf(fid42,"V1 & %.11f\\\\ \\hline \n\
-V2 & %.11f\\\\ \\hline \n\
-V3 & %.11f\\\\ \\hline \n\
-V5 & %.11f\\\\ \\hline \n\
+fprintf(fid42,"V1 & %.11e\\\\ \\hline \n\
+V2 & %.11e\\\\ \\hline \n\
+V3 & %.11e\\\\ \\hline \n\
+V5 & %.11e\\\\ \\hline \n\
 V6 & %.11f\\\\ \\hline \n\
 V7 & %.11f\\\\ \\hline \n\
 V8 & %.11f\\\\ \\hline",ArgV1,ArgV2,ArgV3,ArgV5,ArgV6,ArgV7,ArgV8)
@@ -307,7 +307,7 @@ end
 Teoria_5 = figure();
 plot(t, Plot_V6, t, Plot_Vs);
 xlabel ("t");
-ylabel ("v_6(t) [V]  e v_s(t) [V]");
+ylabel ("v_6(t) [V]    v_s(t) [V]");
 legend("v6","vs");
 print (Teoria_5, "Teoria_5_Fig.eps","-depsc");
 close(Teoria_5);
