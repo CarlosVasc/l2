@@ -60,7 +60,7 @@ ngspice4.log: ../sim/Ng4.cir
 clean:
 	@rm -rf *.aux *.bbl *.blg *.glg *.glo *.gls *.ilg *.ist *.lof *.txt
 	@rm -rf *.log *.lot *.nlo *.nls *.out *.toc *~ *.*% ./*.pdf ./*.ps ./*.txt
-	@rm -rf *_tab.tex octave-workspace *.eps *testi.txt *ngspice_1.tex *op_tab1.tex *op_tab2.tex *teorico1.tex *teorico2.tex
+	@rm -rf *_tab.tex octave-workspace *.eps *testi.txt *ngspice_1.tex *op_tab1.tex *op_tab2.tex *teorico1.tex *teorico2.tex *teorico4_Amp.tex *teorico4_Arg.tex
 .PHONY: all clean ngspice octave
 
 

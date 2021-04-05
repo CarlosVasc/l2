@@ -5,7 +5,6 @@ pkg load symbolic
 pkg load control
 pkg load signal
 
-
 %tirar dados do ficheiro.txt produzido pelo make
 format longg
 %abertura do ficheiro
@@ -260,7 +259,30 @@ ArgV3=arg(V3_4);
 ArgV5=arg(V5_4);
 ArgV6=arg(V6_4);
 ArgV7=arg(V7_4);
-ArgV8=arg(V1_4);
+ArgV8=arg(V8_4);
+
+%Faz tabela teorica4 Amplitudes
+fid41=fopen("teorico4_Amp.tex","w+");
+fprintf(fid41,"V1 & %.11f\\\\ \\hline \n\
+V2 & %.11f\\\\ \\hline \n\
+V3 & %.11f\\\\ \\hline \n\
+V5 & %.11f\\\\ \\hline \n\
+V6 & %.11f\\\\ \\hline \n\
+V7 & %.11f\\\\ \\hline \n\
+V8 & %.11f\\\\ \\hline", AbsV1,AbsV2,AbsV3,AbsV5,AbsV6,AbsV7,AbsV8)
+fclose(fid41)
+
+
+%Faz tabela teorica4 argumentos
+fid42=fopen("teorico4_Arg.tex","w+");
+fprintf(fid42,"V1 & %.11f\\\\ \\hline \n\
+V2 & %.11f\\\\ \\hline \n\
+V3 & %.11f\\\\ \\hline \n\
+V5 & %.11f\\\\ \\hline \n\
+V6 & %.11f\\\\ \\hline \n\
+V7 & %.11f\\\\ \\hline \n\
+V8 & %.11f\\\\ \\hline",ArgV1,ArgV2,ArgV3,ArgV5,ArgV6,ArgV7,ArgV8)
+fclose(fid42)
 
 
 %----------5------------
