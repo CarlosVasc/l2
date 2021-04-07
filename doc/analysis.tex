@@ -121,7 +121,7 @@ equations, the system of linear equations (produced in matrix form) is \ref{eq:n
   \label{eq:nodal_matrix_syst}
 \end{equation}
 
-In order to obtain the currents running through branches formed by resistors, Ohm's law is applied ($V_i = I_i \cdot R_i)$. Furthermore, given that this is yet a DC circuit, there is no current in the capacitor's branch. All the other branches are formed by sources and all of them are associated with one node that is "connected" to only one other branch, of which the current is known (they are resistor branches). Hence, applying KCL to these ("in common") nodes, computes the last unknown currents.
+In order to obtain the currents running through branches formed by resistors, Ohm's law is applied. Furthermore, given that this is yet a DC circuit and assuming its in a stationary state (a lot of time has passed and the capacitor is fully charged), there is no current in the capacitor's branch. All the other branches are formed by sources and all of them are associated with one node that is "connected" to only one other branch, of which the current is known (they are resistor branches). Hence, applying KCL to these ("in common") nodes, the last unknown currents are obtained
 
 The obtained the results are in Table~\ref{tab:op3}.
 
@@ -141,10 +141,85 @@ The obtained the results are in Table~\ref{tab:op3}.
 \end{comment}
 
 
-\subsection{Equivalent circuit at t=0}
-\label{subsec:node}
+\subsection{Equivalent Resistance}
+\label{subsec:Nat_Sol_theory}
 
-The tasks presented in this subsection are necessary steps towards reducing the original circuit into an equivalent RC circuit and obtaining the natural??? solution .... 
+In this subsection, it is intended to obtain the equivalent resistance of the circuit as seen from the capacitor terminals (at $t=0$, the time in which the circuit will transform into an AC circuit). We need $R_{eq}$ to obtain the natural solution to the differential equation that governs $v_6$. For this, the original independent voltage source is turned to zero, but the voltage drop in the capacitor should remain the same, because we assume the capacitor is fully charged (as mentioned in the previous subsection) and we need this voltage drop to obtain the current running through the capacitor ($I_x$) and, ultimately, $R_eq$, since $R_eq = \frac{V_x}{I_x}$ Therefore, $v_s=0$ and we replace the capacitor for an independent voltage source $V_x = V_6 - V_8$.
+
+Similarly to the Subsection \ref{subsec:node}, the nodal method is applied. The following matricial system is obtained
+
+
+
+Using the \textit{Octave} math tool, the computed resultes are in Table~\ref{tab:op3}.
+
+\subsection{Natural Solution $V_{6n}(t)$}
+\label{subsec:Nat_Sol_theory}
+
+In this subsection, we want to determine $v_6(t)$ with $v_s(t) = 0$. As learned in theory classes, we can describe this using the equation ??
+
+!!!!
+
+being $\tau$ the time constant, which is equal to $R_{eq} \cdot C$, as in a simple in series RC circuit. 
+
+The constant $K$ is $V_6$ determined for $t=0$, which we got in the last subsection, keeping in mind that it represents the initial condition. Hence, we get equation 
+
+!!!!!
+
+which is computed in the time interval [0, 20] ms, using \textit{Octave}, as presented in the table \ref{plot}
+
+
+!!!!
+
+\subsection{Forced Solution $v_{6f}(t)$}
+\label{subsec:Forced_Sol_theory}
+
+
+Additionally, the forced solution $v_{6f}(t)$ is calculated for $t>0$. This time, $v_s(t)$ is a sinusoidal function, so phasors are used, as suggested, for practical purposes. To this end, we need to determine the phasor voltages in all the nodes and, consequently, the phasor $V_6$. The nodal method is used and it is an almost identical analysis as the one done in Subsection \ref{subsec:node}. Only now there is current flowing through the capacitor, as described in equations
+
+!!!!
+!!!!
+!!!!
+
+in which $Z_C$ is the capacitor impedance, with $w = 2\pi f$ and $f=1 KHz$.
+
+
+Moreover, the currents are also phasor (complex) currents, and the impedance of resistors is equal to their resistance ($Z_i = R_i = \frac{1}{G_i}$.
+
+The matrix system we need to solve is therefore presented in ??
+
+!!!
+
+and the plotted results are as follows in table ??
+
+
+\subsection{Total solution $v_{6}(t)$}
+\label{subsec:total_theory}
+
+The intent is now to obtain the total solution $v_6(t)$. For $t>0$, we need to convert the phasor from the forced solution to a real time solution, as shown in equation ??
+
+!!!
+
+and the total solution is obtained adding the natural solution previously calculated. The final solution is equation ??
+
+!!
+
+Using \textit{Octave}, the signals $v_s(t)$ and $v_6(t)$ are plotted in time interval [-5, 20]ms, as presentend in the Figure ???.
+
+
+!!!!
+
+\subsection{Frequency Analysis}
+\label{subsec:freq_theory}
+
+In the last subsection of the Theoretical Analysis, the voltage signals $v_c = v_6 - v_8$, $v_6$ and $v_s$ are analysed as functions of frequency, ranging said frequency from $0.1 Hz$ to $1 MHz$. The voltages is analysed considering its magnituded in dBs and phase in degrees. The frequency is in the base 10 logarithmic scale. 
+
+$v_s$ should not vary with frequency as it is the voltage source of the circuit and, hence, the source of the frequency variation. It should remain zero, since it is 1V. It should have no phase, because its sine function has no phase.
+
+talk about v_c and v6???????
+
+Bode diagrams are used to perform these analyses and they require transfer functions, in this case dependent on frequency (the argument of the function could be $jw$ or $jf$ instead of the regular $s$: complex variable).
+
+The bode diagram diagram is presented in Figure ??.
 
 
 
