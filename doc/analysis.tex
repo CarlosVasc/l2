@@ -1,22 +1,160 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-\subsection{Mesh Method}
-\label{subsec:mesh}
+\subsection{Node Method}
+\label{subsec:node}
 
-\begin{figure}[!ht] 
-\caption{Teste}
-\includegraphics[width=0.6\linewidth]{sim_3.eps}
-\end{figure}
+
+The circuit consists of 8 nodes: 0 (ground), 1, 2, 3, 5, 6, 7 and 8, respectively associated with nodal voltages $V_0$, $V_1$, $V_2$, $V_3$, $V_5$, $V_6$, $V_7$ and $V_8$ (seen in Figure~\ref{fig:esq}). 
+
+The nodal equations obtained with the nodal method pertain to the mentioned nodes as presented next. 
+The following "nodal" equations are KCL equations applied to the nodes, except equations \ref{eq:N_0}, \ref{eq:N_4_2} 
+and \ref{eq:N_6}. \\
+\\
+\textit{Node 0}:
+\begin{equation}
+  V_0=0
+  \label{eq:N_0}
+\end{equation}
+\textit{Node 1}:
+\begin{equation}
+    (V_1 - V_0) \cdot G_1 + (V_1 - V_2) \cdot G_2 + V_b \cdot G_3 = 0
+    \label{eq:N_1}
+\end{equation}
+\textit{Node 2}:
+\begin{equation}
+    (V_2 - V_1) \cdot G_2 - K_b \cdot V_b = 0
+    \label{eq:N_2}
+\end{equation}
+\textit{Node 3}:
+\begin{equation}
+    (V_3 - V_7) \cdot G_5 - I_d + K_b \cdot V_b = 0
+    \label{eq:N_3}
+\end{equation}
+\textit{Node 4}:
+\begin{equation}
+    (V_5 - V_4) \cdot G_7 + I_{V_C} - I_d = 0
+    \label{eq:N_4_1}
+\end{equation}
+\begin{equation}
+    V_4 = - V_c + V_7
+    \label{eq:N_4_2}
+\end{equation}
+\textit{Node 5}:
+\begin{equation}
+  (V_5 - V_6) \cdot G_6 + (V_5 - V_4) \cdot G_7 = 0
+  \label{eq:N_5}
+\end{equation}
+\textit{Node 6}:
+\begin{equation}
+    V_6 = - V_a
+  \label{eq:N_6}
+\end{equation}
+\textit{Node 7}:
+\begin{equation}
+  I_{V_C} + (V_7 - V_3) \cdot G_5 + (V_7 - V_2) \cdot G_3 + (V_7 - V_6) \cdot G_4 = 0
+  \label{eq:N_7}
+\end{equation}
+
+To obtain a determined linear system of equations, three other equations are added. Both $V_b$ and $I_c$ need to be written as a function of nodal voltages, as shown in equations \ref{eq:Add_Vb} and \ref{eq:Add_Ic}. $V_C$ should be equated as shown in Figure \ref{fig:esq} and as written in equation \ref{eq:Add_Vc}.
+
+\begin{equation}
+    V_b = V_1 - V_7
+    \label{eq:Add_Vb}
+\end{equation}
+
+\begin{equation}
+    V_5 + I_c \cdot R_6 = V_6 \Leftrightarrow I_c = (V_6 - V_5) \cdot G_6
+    \label{eq:Add_Ic}
+\end{equation}
+
+\begin{equation}
+    V_c = K_c \cdot I_c
+    \label{eq:Add_Vc}
+\end{equation}
+
+
+Applying the added equations \ref{eq:Add_Vb}, \ref{eq:Add_Ic} and \ref{eq:Add_Vc} to the previously presented nodal 
+equations, the system of linear equations (produced in matrix form) is \ref{eq:nodal_matrix_A} and \ref{eq:nodal_matrix_syst}.
+
+
+\begin{equation}
+    A =
+    \begin{bmatrix}
+        0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+        -1 & 0 & 0 & 1 & 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0\\
+        -K_b & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
+        0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & K_d\\
+        0 & -1 & 0 & 0 & 0 & 1 & 0 & 0 & -1 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & -G_6 & 0 & 0 & 0 & -1\\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\
+        0 & 0 & -G_1 & (G1+G2+G3) & -G_2 & -G3 & 0 & 0 & 0 & 0 & 0 & 0\\
+        0 & 0 & 0 & -G_2-K_b & G_2 & K_b & 0 & 0 & 0 & 0 & 0 & 0\\
+        0 & 0 & 0 & K_b & 0 & -K_b-G_5 & G_5 & 0 & 0 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & (G7+G6) & -G7 & 0 & 0 & 0\\
+        0 & 0 & G_1 & -G_1 & 0 & -G_4 & 0 & 0 & 0 & 0 & 0 & 1\\
+        
+    \end{bmatrix}
+    \label{eq:nodal_matrix_A}
+\end{equation}
+
+\begin{equation}
+    A \cdot
+  \begin{bmatrix}
+    V_b\\
+    V_c\\
+    V_1\\
+    V_2\\
+    V_3\\
+    V_5\\
+    V_6\\
+    V_7\\
+    V_8\\
+    I_b\\
+    I_c\\
+    I_d\\
+  \end{bmatrix}
+    =
+  \begin{bmatrix}
+    V_s\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0
+  \end{bmatrix}
+  \label{eq:nodal_matrix_syst}
+\end{equation}
+
+In order to obtain the currents running through branches formed by resistors, Ohm's law is applied ($V_i = I_i \cdot R_i)$. Furthermore, given that this is yet a DC circuit, there is no current in the capacitor's branch. All the other branches are formed by sources and all of them are associated with one node that is "connected" to only one other branch, of which the current is known (they are resistor branches). Hence, applying KCL to these ("in common") nodes, computes the last unknown currents.
+
+The obtained the results are in Table~\ref{tab:op3}.
+
+\begin{comment}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{tabelaNos}
+  \end{tabular}
+  \caption{Values for the components using the node method.}
+  \label{tab:op3}
+\end{table}
+
+\end{comment}
+
+
+\subsection{Equivalent circuit at t=0}
+\label{subsec:node}
+
+The tasks presented in this subsection are necessary steps towards reducing the original circuit into an equivalent RC circuit and obtaining the natural??? solution .... 
+
+
+
+
 
 
 \begin{figure}[!ht]
 \caption{Teste}
 \includegraphics[width=0.6\linewidth]{Teoria_3_Fig.eps}
 \end{figure}
-
-
-
 
 \begin{table}[h]
   \centering
