@@ -1,6 +1,60 @@
 \section{Simulation Analysis}
 \label{sec:simulation}
 
-To accurately simulate the circuit in ngspice, precaution is needed with the positive and negative nodes associated with each component, since an error in these parameters would cause currents and voltage sources operating in the wrong direction.
+To accurately simulate the circuit in \textit{Ngspice}, precaution is needed with the positive and negative nodes associated with each component, since an error in these parameters would cause currents and voltage sources operating in the wrong direction.
 
-It's important to add that due to a peculiarity of the program, we couldn't get the current in the resistance $R_5$ as a reference for the current dependent voltage source. To solve that, we created a 
+It's important to add that due to a peculiarity of the program, we couldn't get the current in the resistance $R_????$ as a reference for the current dependent voltage source. To solve that, we created a dummy source($V_????$ with value 0) in that branch so that the program could get a valid read.
+
+
+\subsection{Operating Point Analysis for $t<0$}
+\label{subsec:OP_t<0}
+
+Table~\ref{tab:op} shows the simulated operating point results for the circuit under analysis at $t<0$, analogous to the one in subsection \ref{subsec:node}
+
+
+
+\subsection{Operating Point Analysis for $t=0$}
+\label{subsec:OP_t=0}
+
+
+The purpose in simulating the operation point in the circuit analogous to the one in \ref{subsec:Req_theory} is to get the boundary/initial conditions $V_6(t=0)$ and $V_8(t=0)$, which will be needed in the following subsections. The values obtained are in table ????
+
+!!!!!!
+
+%Note that $v_6(t=0)$ is very similar to $v_x(t=0)$ and $v_8(t=0)$ is near zero.
+
+
+\subsection{Transient Analysis for natural solution}
+\label{subsec:trans_nat}
+
+In the present subsection, we perform a transient analysis to the original circuit in Figure ??? (adding the "dummy" null voltage source mentioned in the beginning of this section) with $v_s = 0$, and using $V_6$ and $V_8$, obtained in the previous subsection, as boundary conditions, in order to obtain $v_{6n}(t)$ in the [0, 20]ms time interval.
+
+The results are plotted in Figure ???
+
+\subsection{Transient Analysis for total solution}
+\label{subsec:trans_total}
+
+In this subsection, we perform a transient analysis analogous to the last, except the voltage source is now the sinusoidal signal $sin(2 \pi f t)$, being $f = 1kHz$.
+
+In Figure ??, both the stimulus and $v_6(t)$ response are plotted for the time interval [0, 20]ms.
+
+
+\subsection{Frequency Analysis}
+\label{subsec:freq_sim}
+
+
+
+\subsection{Comparisons}
+
+In this last subsection, we present the tables and plots obtained from the Theoretical Analysis and the Simulations Analysis that refer to the same sets of evaluations, for visualization purposes, and comment on their similarities or discrepancies.
+
+While analysing the mesh currents and nodal voltages in $t<0$, the tables in Figure ?? were determined.
+
+!!!!!!!
+
+While analysing for the ????????? , the tables in Figure ?? were determined
+
+
+Between all the aforementioned plots, it can be seen that the results are almost identical. The discrepancies begin in the ???? decimal place or in incredibly small numbers which can be considered as zero. These inaccuracies can be attributed to the different approximations or types of variables the \textit{Octave} math tool and \textit{Ngspice} software may use.
+
+In the following graphs, plotted for time and frequency analysis, we can also see the near perfect match. Considering this is a relatively simple linear circuit, this was to be expected.
